@@ -1,7 +1,8 @@
-# Flux ideas
+# Functional flux
+
 As discussed in Dan Abramov's
 [the evolution of flux frameworks](https://medium.com/@dan_abramov/the-evolution-of-flux-frameworks-6c16ad26bb31)
-the latest crop of flux libraries are tending to share an interesting mutation on the original pattern. Their stores
+the latest crop of flux libraries tend to share an interesting mutation on the original pattern. Their stores
 are stateless. In the original flux pattern stores contained the domain logic and state. They would listen to actions,
 and if the action was relevant to the store their logic would mutate their state and emit change events.
 
@@ -19,3 +20,10 @@ initial value and replay the saved actions.
 It is also easier to reason about and test pure functions as opposed to stateful stores. This approach also deals with
 server side rendering issues as previous requests state isn't stored in the stores instead each request is provided
 with a clean state tree.
+
+## State tree
+
+You cannot use a flat array or a simple flat-ish object (one or two levels of data properties) to store the state for a
+complex application or component. Such an approach won't scale. Complex UIs are trees of components each a reflection
+of their state. The backing datastructure used to store the app or component state should acknowledge this reality.
+Like many datastructure problems in computer science the answer is to use a tree.
