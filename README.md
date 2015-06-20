@@ -21,6 +21,22 @@ It is also easier to reason about and test pure functions as opposed to stateful
 server side rendering issues as previous requests state isn't stored in the stores instead each request is provided
 with a clean state tree.
 
+Let's specify how an application or component built on functional flux principles behaves by breaking the system down
+into its constituent parts and analyzing them.
+
+## View
+
+The view layer is assumed to be React, it doesn't have to be but it's probably the best choice for the job.
+
+There are two major types of components in the React world.
+
+ * The generic, pure functional ones. These are provided almost all the data they need to render correctly by their
+parent components. They are configured via `props` passed in by the parent and would not have any coupling to data
+sources outside their component scope. They have no notion of a domain specific store/data provider. For example a
+button, or an autocomplete input. They tend to be generic and therefore easy to reuse.
+
+ * The ones coupled to a specific store or backing data structure. In flux they are called controller-views.
+
 ## State tree
 
 You cannot use a flat array or a simple flat-ish object (one or two levels of data properties) to store the state for a
