@@ -26,16 +26,21 @@ into its constituent parts and analyzing them.
 
 ## View
 
-The view layer is assumed to be React, it doesn't have to be but it's probably the best choice for the job.
+The view layer is assumed to be React, it doesn't have to be but it's probably the best choice for the job. The view
+should be "functional friendly" so that it's easy to process arbitrary state transitions such as a complete state
+reset following a hot reload. This would make it more difficult to use retained mode solutions, such as web components,
+that require imperative operations to mutate the view.
 
 There are two major types of components in the React world.
 
  * The generic, pure functional ones. These are provided almost all the data they need to render correctly by their
-parent components. They are configured via `props` passed in by the parent and would not have any coupling to data
-sources outside their component scope. They have no notion of a domain specific store/data provider. For example a
-button, or an autocomplete input. They tend to be generic and therefore easy to reuse.
+ parent components. They are configured via `props` passed in by the parent and would not have any coupling to data
+ sources outside their component scope. They have no notion of a domain specific store/data provider. For example a
+ button, or an autocomplete input. They tend to be generic and therefore easy to reuse.
 
- * The ones coupled to a specific store or backing data structure. In flux they are called controller-views.
+ * The ones coupled to a specific store or backing data structure. In flux they are called controller-views. These
+ components have explicit knowledge of what parts of the state tree they are a reflection of. They are components
+ coupled to a domain.
 
 ## State tree
 
@@ -43,3 +48,6 @@ You cannot use a flat array or a simple flat-ish object (one or two levels of da
 complex application or component. Such an approach won't scale. Complex UIs are trees of components each a reflection
 of their state. The backing datastructure used to store the app or component state should acknowledge this reality.
 Like many datastructure problems in computer science the answer is to use a tree.
+
+## View-state tree interaction
+
