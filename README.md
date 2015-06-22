@@ -40,9 +40,14 @@ There are two major types of components in the React world.
 
  * The ones coupled to a specific store or backing data structure. In flux they are called controller-views. These
  components have explicit knowledge of what parts of the state tree they are a reflection of. They are components
- coupled to a domain.
+ coupled to a domain. These components take the store state and pass it into their child components.
+
+Only the second type of component needs to interact with the flux system.
 
 ## State tree
+
+This is the centralized application or component state. The controller views take the data they need from this data
+structure.
 
 You cannot use a flat array or a simple flat-ish object (one or two levels of data properties) to store the state for a
 complex application or component. Such an approach won't scale. Complex UIs are trees of components each a reflection
@@ -51,3 +56,10 @@ Like many datastructure problems in computer science the answer is to use a tree
 
 ## View-state tree interaction
 
+The controller-view components need to
+
+ * Specify what part of the state tree they need for rendering.
+ * Register to updates for those parts of the state tree to trigger re-renders.
+
+This means the state tree needs to emit events for data changes. Thankfully there is no
+need to create a state tree library [baobab](https://github.com/Yomguithereal/baobab)
